@@ -1,5 +1,6 @@
 package cn.me.springboot_jsp_shiro.service.impl;
 
+import cn.me.springboot_jsp_shiro.domain.Role;
 import cn.me.springboot_jsp_shiro.domain.User;
 import cn.me.springboot_jsp_shiro.mapper.UserMapper;
 import cn.me.springboot_jsp_shiro.service.UserService;
@@ -9,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+import java.util.List;
+
+@Service("userService")
 public class UserServiceImpl implements UserService
 {
     @Autowired
@@ -26,5 +29,17 @@ public class UserServiceImpl implements UserService
         Md5Hash md5Hash = new Md5Hash(user.getPassword(), salt, 1024);
         user.setPassword(md5Hash.toHex());
         userMapper.saveUser(user);
+    }
+
+    @Override
+    public User findByUsername(String username)
+    {
+        return userMapper.findByUsername(username);
+    }
+
+    @Override
+    public User findRolesByUsername(String username)
+    {
+        return userMapper.findRolesByUsername(username);
     }
 }

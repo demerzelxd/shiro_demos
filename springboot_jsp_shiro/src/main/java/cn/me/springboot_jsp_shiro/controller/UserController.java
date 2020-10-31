@@ -3,7 +3,6 @@ package cn.me.springboot_jsp_shiro.controller;
 import cn.me.springboot_jsp_shiro.domain.User;
 import cn.me.springboot_jsp_shiro.service.UserService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
