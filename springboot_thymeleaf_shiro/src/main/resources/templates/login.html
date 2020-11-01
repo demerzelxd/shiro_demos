@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shiro Demo Login</title>
+</head>
+<body>
+    <h1>用户登录：公共资源</h1>
+
+    <form th:action="@{/user/login}" method="post">
+        用户名：<input type="text" name="username"><br/>
+        密码：<input type="text" name="password"><br/>
+        请输入验证码：<input type="text" name="code"><img th:src="@{/user/image}" alt=""><br/>
+        <input type="submit" value="登录">
+    </form>
+    <a th:href="@{/user/registerView}">点我进行注册</a>
+</body>
+</html>
