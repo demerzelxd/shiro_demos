@@ -32,4 +32,17 @@
             username = #{username};
     </select>
 
+    <select id="findPermsByRoleId" parameterType="String" resultType="Permission">
+        SELECT
+            p.id,
+            p.NAME,
+            p.url
+        FROM
+            t_role r
+            LEFT JOIN t_role_perms rp ON r.id = rp.roleid
+            LEFT JOIN t_perms p ON rp.permsid = p.id
+        WHERE
+            r.id = #{id}
+    </select>
+
 </mapper>

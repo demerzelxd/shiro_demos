@@ -14,10 +14,15 @@
 <body>
 <%--    快速补全为!加Tab--%>
     <h1>系统主页：受限资源</h1>
+<%--展示用户的身份信息--%>
+    <shiro:authenticated>
+        认证之后展示内容<br>
+        <h1><shiro:principal/></h1>
+    </shiro:authenticated>
     <a href="${pageContext.request.contextPath}/user/logout">退出用户</a>
     <ul>
 <%--        我们设计用户管理只能被user角色看到，admin能看到所有--%>
-        <shiro:hasAnyRoles name="user,admin">
+        <shiro:hasAnyRoles name="user, admin">
             <li><a href="">用户管理</a>
                 <ul>
                     <shiro:hasPermission name="user:add:*">
@@ -37,6 +42,11 @@
         </shiro:hasAnyRoles>
         <shiro:hasRole name="admin">
             <li><a href="">商品管理</a> </li>
+                <ul>
+                    <shiro:hasPermission name="product:*:01">
+                        <li><a href="">操作01商品</a></li>
+                    </shiro:hasPermission>
+                </ul>
             <li><a href="">订单管理</a> </li>
             <li><a href="">物流管理</a> </li>
         </shiro:hasRole>

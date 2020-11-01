@@ -1,5 +1,6 @@
 package cn.me.springboot_jsp_shiro.config;
 
+import cn.me.springboot_jsp_shiro.shiro.cache.RedisCacheManager;
 import cn.me.springboot_jsp_shiro.shiro.realms.CustomRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.realm.Realm;
@@ -30,6 +31,7 @@ public class ShiroConfig
         Map<String, String> map = new HashMap<>();
 //        map.put("/index.jsp", "authc");//authc代表请求这个资源需要认证和授权
         map.put("/user/login", "anon");//将login请求设置为anon公共的，不拦截
+        map.put("/user/image", "anon");//将验证码请求设置为anon公共的，不拦截
         map.put("/login.jsp", "anon");//将login页面设置为anon公共的，不拦截
         map.put("/user/register", "anon");//将register请求设置为anon公共的，不拦截
         map.put("/register.jsp", "anon");//将register页面设置为anon公共的，不拦截
@@ -60,6 +62,24 @@ public class ShiroConfig
         matcher.setHashAlgorithmName("MD5");
         matcher.setHashIterations(1024);
         customRealm.setCredentialsMatcher(matcher);
+
+        //开启缓存管理，设置缓存为EhCache
+//        customRealm.setCacheManager(new EhCacheManager());
+//        //开启全局缓存
+//        customRealm.setCachingEnabled(true);
+//        //开启认证和授权的缓存管理
+//        customRealm.setAuthenticationCachingEnabled(true);
+//        //设置认证的缓存名
+//        customRealm.setAuthenticationCacheName("AuthenticationCache");
+//        customRealm.setAuthorizationCachingEnabled(true);
+//        //设置授权的缓存名
+//        customRealm.setAuthorizationCacheName("AuthorizationCache");
+        customRealm.setCacheManager(new RedisCacheManager());
+        customRealm.setCachingEnabled(true);//开启全局缓存
+        customRealm.setAuthenticationCachingEnabled(true);//认证认证缓存
+        customRealm.setAuthenticationCacheName("authenticationCache");
+        customRealm.setAuthorizationCachingEnabled(true);//开启授权缓存
+        customRealm.setAuthorizationCacheName("authorizationCache");
         return customRealm;
     }
 }

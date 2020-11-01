@@ -1,9 +1,9 @@
 package cn.me.springboot_jsp_shiro.shiro.realms;
 
-import cn.me.springboot_jsp_shiro.domain.Role;
+import cn.me.springboot_jsp_shiro.domain.Permission;
 import cn.me.springboot_jsp_shiro.domain.User;
 import cn.me.springboot_jsp_shiro.service.UserService;
-import cn.me.springboot_jsp_shiro.utils.ApplicationContextUtils;
+import cn.me.springboot_jsp_shiro.shiro.salt.MyByteSource;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -14,7 +14,6 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,11 +45,21 @@ public class CustomRealm extends AuthorizingRealm
 //        }
         User user = userService.findRolesByUsername(primaryPrincipal);
         //授权角色信息
-        if(!CollectionUtils.isEmpty(user.getRoles()))
+        if (!CollectionUtils.isEmpty(user.getRoles()))
         {
             SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-            user.getRoles().forEach(role -> {
+            user.getRoles().forEach(role ->
+            {
                 simpleAuthorizationInfo.addRole(role.getName());
+                //权限信息
+                List<Permission> perms = userService.findPermsByRoleId(role.getId());
+                if (!CollectionUtils.isEmpty(perms))
+                {
+                    perms.forEach(permission ->
+                    {
+                        simpleAuthorizationInfo.addStringPermission(permission.getName());
+                    });
+                }
             });
             return simpleAuthorizationInfo;
         }
@@ -76,7 +85,7 @@ public class CustomRealm extends AuthorizingRealm
             return new SimpleAuthenticationInfo(
                     user.getUsername(),
                     user.getPassword(),
-                    ByteSource.Util.bytes(user.getSalt()),
+                    new MyByteSource(user.getSalt()),
                     this.getName());
         }
         return null;

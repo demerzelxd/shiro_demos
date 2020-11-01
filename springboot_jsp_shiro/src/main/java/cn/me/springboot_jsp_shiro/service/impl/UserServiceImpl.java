@@ -1,5 +1,6 @@
 package cn.me.springboot_jsp_shiro.service.impl;
 
+import cn.me.springboot_jsp_shiro.domain.Permission;
 import cn.me.springboot_jsp_shiro.domain.Role;
 import cn.me.springboot_jsp_shiro.domain.User;
 import cn.me.springboot_jsp_shiro.mapper.UserMapper;
@@ -41,5 +42,11 @@ public class UserServiceImpl implements UserService
     public User findRolesByUsername(String username)
     {
         return userMapper.findRolesByUsername(username);
+    }
+
+    @Override
+    public List<Permission> findPermsByRoleId(String id)
+    {
+        return userMapper.findPermsByRoleId(id);
     }
 }
