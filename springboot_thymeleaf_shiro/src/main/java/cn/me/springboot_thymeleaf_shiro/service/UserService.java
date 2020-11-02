@@ -1,8 +1,7 @@
-package cn.me.springboot_jsp_shiro.service;
+package cn.me.springboot_thymeleaf_shiro.service;
 
-import cn.me.springboot_jsp_shiro.domain.Permission;
-import cn.me.springboot_jsp_shiro.domain.Role;
-import cn.me.springboot_jsp_shiro.domain.User;
+import cn.me.springboot_thymeleaf_shiro.domain.Permission;
+import cn.me.springboot_thymeleaf_shiro.domain.User;
 
 import java.util.List;
 

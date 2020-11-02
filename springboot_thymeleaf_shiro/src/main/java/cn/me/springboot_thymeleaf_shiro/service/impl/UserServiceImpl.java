@@ -1,11 +1,10 @@
-package cn.me.springboot_jsp_shiro.service.impl;
+package cn.me.springboot_thymeleaf_shiro.service.impl;
 
-import cn.me.springboot_jsp_shiro.domain.Permission;
-import cn.me.springboot_jsp_shiro.domain.Role;
-import cn.me.springboot_jsp_shiro.domain.User;
-import cn.me.springboot_jsp_shiro.mapper.UserMapper;
-import cn.me.springboot_jsp_shiro.service.UserService;
-import cn.me.springboot_jsp_shiro.utils.SaltUtils;
+import cn.me.springboot_thymeleaf_shiro.domain.Permission;
+import cn.me.springboot_thymeleaf_shiro.domain.User;
+import cn.me.springboot_thymeleaf_shiro.mapper.UserMapper;
+import cn.me.springboot_thymeleaf_shiro.service.UserService;
+import cn.me.springboot_thymeleaf_shiro.utils.SaltUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,8 +1,8 @@
-package cn.me.springboot_jsp_shiro.controller;
+package cn.me.springboot_thymeleaf_shiro.controller;
 
-import cn.me.springboot_jsp_shiro.domain.User;
-import cn.me.springboot_jsp_shiro.service.UserService;
-import cn.me.springboot_jsp_shiro.utils.VerifyCodeUtils;
+import cn.me.springboot_thymeleaf_shiro.domain.User;
+import cn.me.springboot_thymeleaf_shiro.service.UserService;
+import cn.me.springboot_thymeleaf_shiro.utils.VerifyCodeUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -23,6 +23,28 @@ public class UserController
 {
     @Autowired
     private UserService userService;
+
+    /**
+     * 跳转到register请求
+     * @return
+     */
+    @RequestMapping("registerView")
+    public String register()
+    {
+        System.out.println("跳转到register.html");
+        return "register";
+    }
+
+    /**
+     * 跳转到login请求
+     * @return
+     */
+    @RequestMapping("loginView")
+    public String login()
+    {
+        System.out.println("跳转到login.html");
+        return "login";
+    }
 
     /**
      * 验证码方法
@@ -51,12 +73,12 @@ public class UserController
         try
         {
             userService.saveUser(user);
-            return "redirect:/login.jsp";
+            return "redirect:/user/loginView";
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            return "redirect:/register.jsp";
+            return "redirect:/user/registerView";
         }
     }
 
@@ -81,7 +103,7 @@ public class UserController
                 Subject subject = SecurityUtils.getSubject();
                 subject.login(new UsernamePasswordToken(username, password));
                 System.out.println("认证状态：" + subject.isAuthenticated());
-                return "redirect:/index.jsp";
+                return "redirect:/index";
             }
             else
             {
@@ -103,7 +125,7 @@ public class UserController
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
-        return "redirect:/login.jsp";
+        return "redirect:/user/loginView";
     }
 
     /**
@@ -116,6 +138,6 @@ public class UserController
     {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        return "redirect:/login.jsp";
+        return "redirect:/user/loginView";
     }
 }

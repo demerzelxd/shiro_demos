@@ -1,9 +1,9 @@
-package cn.me.springboot_jsp_shiro.shiro.realms;
+package cn.me.springboot_thymeleaf_shiro.shiro.realms;
 
-import cn.me.springboot_jsp_shiro.domain.Permission;
-import cn.me.springboot_jsp_shiro.domain.User;
-import cn.me.springboot_jsp_shiro.service.UserService;
-import cn.me.springboot_jsp_shiro.shiro.salt.MyByteSource;
+import cn.me.springboot_thymeleaf_shiro.domain.Permission;
+import cn.me.springboot_thymeleaf_shiro.domain.User;
+import cn.me.springboot_thymeleaf_shiro.service.UserService;
+import cn.me.springboot_thymeleaf_shiro.shiro.salt.MyByteSource;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.shiro.authc.AuthenticationException;

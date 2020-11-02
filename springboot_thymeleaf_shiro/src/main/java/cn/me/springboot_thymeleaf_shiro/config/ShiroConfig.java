@@ -1,7 +1,8 @@
-package cn.me.springboot_jsp_shiro.config;
+package cn.me.springboot_thymeleaf_shiro.config;
 
-import cn.me.springboot_jsp_shiro.shiro.cache.RedisCacheManager;
-import cn.me.springboot_jsp_shiro.shiro.realms.CustomRealm;
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import cn.me.springboot_thymeleaf_shiro.shiro.cache.RedisCacheManager;
+import cn.me.springboot_thymeleaf_shiro.shiro.realms.CustomRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -19,6 +20,13 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig
 {
+    //页面标签不起作用一定要记住加入方言处理
+    @Bean(name = "shiroDialect")
+    public ShiroDialect shiroDialect()
+    {
+        return new ShiroDialect();
+    }
+
     //1.创建ShiroFilter负责拦截请求
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager)
@@ -30,18 +38,22 @@ public class ShiroConfig
         //配置系统公共资源
         Map<String, String> map = new HashMap<>();
 //        map.put("/index.jsp", "authc");//authc代表请求这个资源需要认证和授权
-        map.put("/user/login", "anon");//将login请求设置为anon公共的，不拦截
+
+        map.put("/login.html", "anon");//将login请求设置为anon公共的，不拦截
         map.put("/user/image", "anon");//将验证码请求设置为anon公共的，不拦截
-        map.put("/login.jsp", "anon");//将login页面设置为anon公共的，不拦截
-        map.put("/user/register", "anon");//将register请求设置为anon公共的，不拦截
-        map.put("/register.jsp", "anon");//将register页面设置为anon公共的，不拦截
+        map.put("/user/register", "anon");//将验证码请求设置为anon公共的，不拦截
+        map.put("/user/registerView", "anon");//将验证码请求设置为anon公共的，不拦截
+        map.put("/register.html", "anon");//将验证码请求设置为anon公共的，不拦截
+        map.put("/user/login", "anon");//将验证码请求设置为anon公共的，不拦截
+
         map.put("/**", "authc");//authc代表请求这个资源需要认证和授权
         //默认认证界面路径
-//        shiroFilterFactoryBean.setLoginUrl("/login.jsp");
+        shiroFilterFactoryBean.setLoginUrl("/user/loginView");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }
+
     //2.创建ShiroFilter需要的安全管理器
     @Bean
     public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("realm") Realm realm)
@@ -51,6 +63,7 @@ public class ShiroConfig
         defaultWebSecurityManager.setRealm(realm);
         return defaultWebSecurityManager;
     }
+
     //3.创建自定义realm
     @Bean("realm")
     public Realm getRealm()

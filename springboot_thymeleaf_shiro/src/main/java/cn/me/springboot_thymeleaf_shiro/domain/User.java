@@ -1,4 +1,4 @@
-package cn.me.springboot_jsp_shiro.domain;
+package cn.me.springboot_thymeleaf_shiro.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
