@@ -1,7 +1,6 @@
 package cn.me.springboot_jsp_shiro.service.impl;
 
 import cn.me.springboot_jsp_shiro.domain.Permission;
-import cn.me.springboot_jsp_shiro.domain.Role;
 import cn.me.springboot_jsp_shiro.domain.User;
 import cn.me.springboot_jsp_shiro.mapper.UserMapper;
 import cn.me.springboot_jsp_shiro.service.UserService;

@@ -1,7 +1,6 @@
 package cn.me.springboot_jsp_shiro.mapper;
 
 import cn.me.springboot_jsp_shiro.domain.Permission;
-import cn.me.springboot_jsp_shiro.domain.Role;
 import cn.me.springboot_jsp_shiro.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 
